@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chad Rollington — CEO, FlushAI™</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --dark: #0d0d0d;
+    --mid: #1a1a1a;
+    --surface: #141414;
+    --text: #f0ece3;
+    --muted: #888;
+    --accent: #e8d5a0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-kicker::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 1.05; font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  h1 span { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted); line-height: 1.8;
+    max-width: 480px; margin-bottom: 2.5rem;
+  }
+  .cta-row { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    background: var(--gold); color: var(--dark);
+    padding: 0.9rem 2.2rem; border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    font-weight: 500; transition: all 0.3s;
+    border: 1px solid var(--gold);
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-ghost {
+    padding: 0.9rem 2.2rem; border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--gold); border: 1px solid rgba(201,168,76,0.4);
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .avatar-ring {
+    width: 340px; height: 340px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .avatar-ring::before {
+    content: '';
+    position: absolute; inset: -20px; border-radius: 50%;
+    border: 1px dashed rgba(201,168,76,0.12);
+    animation: spin 30s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .avatar-inner {
+    width: 280px; height: 280px; border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid rgba(201,168,76,0.2);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+  .avatar-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center top;
+    border-radius: 50%;
+  }
+  .avatar-inner .avatar-fallback {
+    font-size: 80px; line-height: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .avatar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .badge-float {
+    position: absolute;
+    background: var(--dark); border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px; padding: 10px 14px;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+  }
+  .badge-float.tl { top: 20px; left: -40px; }
+  .badge-float.br { bottom: 30px; right: -50px; }
+  .badge-val { color: var(--gold); font-size: 18px; font-weight: 500; display: block; }
+  .badge-lab { color: var(--muted); font-size: 10px; display: block; margin-top: 2px; }
+
+  /* STATS STRIP */
+  .stats-strip {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 0 4rem;
+  }
+  .stat-item {
+    padding: 3rem 2rem;
+    border-right: 1px solid rgba(201,168,76,0.1);
+    text-align: center;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; color: var(--gold); display: block;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--muted); text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+  .section-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700; margin-bottom: 1.5rem;
+    max-width: 600px;
+  }
+  h2 em { color: var(--gold); font-style: italic; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+  .about-body { color: var(--muted); line-height: 1.9; font-size: 1.05rem; }
+  .about-body p + p { margin-top: 1.2rem; }
+  .quote-block {
+    border-left: 2px solid var(--gold);
+    padding: 1.5rem 2rem;
+    background: var(--surface);
+    border-radius: 0 4px 4px 0;
+    margin-top: 2rem;
+  }
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.2rem;
+    color: var(--accent); line-height: 1.6;
+  }
+  .quote-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    margin-top: 0.75rem; letter-spacing: 0.1em;
+  }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item {
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 1.5rem; padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    position: relative;
+  }
+  .tl-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--gold); padding-top: 4px;
+  }
+  .tl-content h4 {
+    font-size: 1rem; font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .tl-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+  /* PRODUCT */
+  .product-section { background: var(--surface); }
+  .product-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .product-visual {
+    background: var(--dark);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px; padding: 4rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .product-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+  }
+  .product-icon { font-size: 120px; line-height: 1; position: relative; z-index: 1; }
+  .product-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.3em;
+    color: var(--gold); text-transform: uppercase;
+    margin-top: 1.5rem; position: relative; z-index: 1;
+  }
+  .feature-list { list-style: none; margin-top: 2rem; }
+  .feature-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    display: flex; gap: 1rem; align-items: flex-start;
+    font-size: 0.95rem; color: var(--muted); line-height: 1.5;
+  }
+  .feature-check {
+    color: var(--gold); font-size: 0.9rem; margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .feature-title { font-weight: 500; color: var(--text); }
+
+  /* PRESS */
+  .press-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .press-card {
+    background: var(--surface);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 4px; padding: 2rem;
+    transition: border-color 0.3s;
+  }
+  .press-card:hover { border-color: rgba(201,168,76,0.4); }
+  .press-pub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .press-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1rem;
+    color: var(--accent); line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    background: var(--dark);
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .contact-section h2 { max-width: 100%; margin: 0 auto 1rem; }
+  .contact-sub { color: var(--muted); margin-bottom: 2.5rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(201,168,76,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--muted); letter-spacing: 0.1em;
+  }
+  .footer-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--gold); letter-spacing: 0.2em;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--gold);
+    padding: 10px 0; overflow: hidden;
+  }
+  .ticker-inner {
+    display: flex; gap: 4rem;
+    animation: ticker 18s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.15em;
+    color: var(--dark); text-transform: uppercase; flex-shrink: 0;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.8s ease forwards; }
+  .delay-1 { animation-delay: 0.15s; opacity: 0; }
+  .delay-2 { animation-delay: 0.3s; opacity: 0; }
+  .delay-3 { animation-delay: 0.45s; opacity: 0; }
+  .delay-4 { animation-delay: 0.6s; opacity: 0; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; text-align: center; gap: 3rem; }
+    .hero-sub { max-width: 100%; }
+    .hero-kicker { justify-content: center; }
+    .cta-row { justify-content: center; }
+    .hero-visual { order: -1; }
+    .badge-float.tl { top: 0; left: 0; }
+    .badge-float.br { bottom: 0; right: 0; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); padding: 0 2rem; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    section { padding: 4rem 2rem; }
+    .about-grid, .product-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .press-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">FlushAI™ — Chad Rollington</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#product">Product</a></li>
+    <li><a href="#press">Press</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top: 8rem;">
+  <div class="hero-text">
+    <p class="hero-kicker fade-up">Founder · CEO · Visionary</p>
+    <h1 class="fade-up delay-1">Chad <span>Rollington</span></h1>
+    <p class="hero-sub fade-up delay-2">
+      The man who looked at a roll of toilet paper and said: <em>"This should have Wi-Fi."</em>
+      CEO of FlushAI™ — the world's first AI-powered toilet paper dispenser company, valued at over $3 billion.
+    </p>
+    <div class="cta-row fade-up delay-3">
+      <a href="#about" class="btn-primary">View Portfolio</a>
+      <a href="#contact" class="btn-ghost">Book Speaking</a>
+    </div>
+  </div>
+  <div class="hero-visual fade-up delay-4">
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <img style="margin-top: 50px; margin-right: 40px;" src="./Chad.png" alt="Chad Rollington" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="avatar-fallback" style="display:none; flex-direction:column; align-items:center; gap:8px;">
+          <span>🧻</span>
+          <span class="avatar-label">CEO & Founder</span>
+        </div>
+      </div>
+      <div class="badge-float tl">
+        <span class="badge-val">$3B+</span>
+        <span class="badge-lab">Net Worth</span>
+      </div>
+      <div class="badge-float br">
+        <span class="badge-val">2M+</span>
+        <span class="badge-lab">Units Sold</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">🧻 FlushAI™ — Revolutionizing Restrooms</span>
+    <span class="ticker-item">★ Forbes "Bathroom Billionaire of the Year" 2024</span>
+    <span class="ticker-item">🚽 2 Million Units Sold Worldwide</span>
+    <span class="ticker-item">💰 $3.4 Billion Valuation</span>
+    <span class="ticker-item">🤖 AI That Knows What You Need Before You Do</span>
+    <span class="ticker-item">🧻 FlushAI™ — Revolutionizing Restrooms</span>
+    <span class="ticker-item">★ Forbes "Bathroom Billionaire of the Year" 2024</span>
+    <span class="ticker-item">🚽 2 Million Units Sold Worldwide</span>
+    <span class="ticker-item">💰 $3.4 Billion Valuation</span>
+    <span class="ticker-item">🤖 AI That Knows What You Need Before You Do</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <span class="stat-num">$3.4B</span>
+    <span class="stat-label">Company Valuation</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2M+</span>
+    <span class="stat-label">Units Sold</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">47</span>
+    <span class="stat-label">Countries Disrupted</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">∞</span>
+    <span class="stat-label">Rolls Dispensed</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <p class="section-kicker">The Origin Story</p>
+      <h2>From <em>Zero</em> to Billion-Dollar Bathroom</h2>
+      <div class="about-body">
+        <p>Chad Rollington was just 19 years old when he had the revelation that would change the world — and every bathroom in it. Sitting in a dormitory restroom, he noticed the toilet paper dispenser had no idea how much paper he needed. "Inefficiency," he later wrote in his bestselling memoir, <em>The Unrolling</em>.</p>
+        <p>Two years later, FlushAI™ was born. What started as a $47 prototype built from a Raspberry Pi and a shattered iPhone became the most disruptive bathroom-technology company in human history.</p>
+        <p>Chad has since been featured in Forbes, TechCrunch, and The Bathroom Technology Quarterly. He drives three Teslas simultaneously.</p>
+      </div>
+      <div class="quote-block">
+        <p class="quote-text">"People said disrupting the toilet paper industry was impossible. That's because they were thinking inside the stall."</p>
+        <p class="quote-attr">— Chad Rollington, TED Talk: "Wipe Smarter, Not Harder" (2023)</p>
+      </div>
+    </div>
+    <div>
+      <div class="timeline">
+        <div class="tl-item">
+          <span class="tl-year">2020</span>
+          <div class="tl-content">
+            <h4>The Dormitory Revelation</h4>
+            <p>Chad identifies a $2 trillion underserved market: toilet paper dispensers with absolutely zero artificial intelligence.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2021</span>
+          <div class="tl-content">
+            <h4>FlushAI™ Founded</h4>
+            <p>Raises $12M Series A by pitching investors with a live demo in the boardroom's executive restroom. All 7 investors sign on the spot.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2022</span>
+          <div class="tl-content">
+            <h4>First 100,000 Units</h4>
+            <p>FlushAI™ Model 1 ships. Hotels, airports, and one very progressive Michelin-star restaurant adopt the product.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2023</span>
+          <div class="tl-content">
+            <h4>2 Million Units. $1B Revenue.</h4>
+            <p>Goes viral after a celebrity's FlushAI™ dispenser tweets independently. Valuation hits $3.4B overnight.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2024</span>
+          <div class="tl-content">
+            <h4>Forbes Bathroom Billionaire</h4>
+            <p>Named Forbes' youngest Bathroom Billionaire. Rejects acquisition offer from Big Tissue. IPO pending.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section id="product" class="product-section">
+  <div style="margin-bottom: 4rem;">
+    <p class="section-kicker">The Product</p>
+    <h2>FlushAI™ <em>Dispenser Pro X</em></h2>
+  </div>
+  <div class="product-grid">
+    <div class="product-visual">
+      <div class="product-icon">🧻</div>
+      <div class="product-name">FlushAI™ Dispenser Pro X</div>
+      <div style="margin-top: 1rem; font-family: 'DM Mono', monospace; font-size: 11px; color: #555; letter-spacing: 0.15em;">EST. RETAIL: $4,299</div>
+    </div>
+    <div>
+      <ul class="feature-list">
+        <li>
+          <span class="feature-check">✦</span>
+          <div>
+            <div class="feature-title">Predictive Sheet Intelligence™</div>
+            Uses on-device neural networks to predict exactly how many sheets you need, based on dietary data, calendar events, and emotional state.
+          </div>
+        </li>
+        <li>
+          <span class="feature-check">✦</span>
+          <div>
+            <div class="feature-title">GPT-4 Integration</div>
+            Ask your dispenser anything. It won't answer, but it's in there.
+          </div>
+        </li>
+        <li>
+          <span class="feature-check">✦</span>
+          <div>
+            <div class="feature-title">Auto-Roll Replenishment</div>
+            Detects low roll supply and auto-orders from Amazon before you even realize. Syncs with your Google Calendar.
+          </div>
+        </li>
+        <li>
+          <span class="feature-check">✦</span>
+          <div>
+            <div class="feature-title">Ambient Mood Lighting</div>
+            Sets the restroom vibe. Forty-seven light scenes including "Focus Mode," "Spa Sunday," and "Board Meeting Regret."
+          </div>
+        </li>
+        <li>
+          <span class="feature-check">✦</span>
+          <div>
+            <div class="feature-title">Blockchain-Verified Usage Data</div>
+            Every square is logged immutably on the FlushChain™. Your rolls, your data, your legacy.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section id="press">
+  <p class="section-kicker">As Seen In</p>
+  <h2>The Press <em>Can't Stop</em> Talking</h2>
+  <div class="press-grid">
+    <div class="press-card">
+      <div class="press-pub">Forbes</div>
+      <p class="press-quote">"We never thought we'd be writing this, but here we are — the toilet paper industry has its first billionaire, and he's 22 years old."</p>
+    </div>
+    <div class="press-card">
+      <div class="press-pub">TechCrunch</div>
+      <p class="press-quote">"Rollington has done to bathroom tissue what Jobs did to music. We hate that we typed that sentence, and we stand by it."</p>
+    </div>
+    <div class="press-card">
+      <div class="press-pub">The Economist</div>
+      <p class="press-quote">"A generation of investors who missed Uber and Airbnb were not about to miss the smart restroom revolution. Whether they should have is a different question entirely."</p>
+    </div>
+    <div class="press-card">
+      <div class="press-pub">WIRED</div>
+      <p class="press-quote">"FlushAI™ is everything: absurd, brilliant, wildly overpriced, and somehow, deeply necessary. 10/10."</p>
+    </div>
+    <div class="press-card">
+      <div class="press-pub">Wall Street Journal</div>
+      <p class="press-quote">"Shares are up 4,800% since IPO. Our financial correspondents have chosen not to comment further."</p>
+    </div>
+    <div class="press-card">
+      <div class="press-pub">Time Magazine</div>
+      <p class="press-quote">"Named among the 100 most influential people in technology. The bathroom, it turns out, was always the final frontier."</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <p class="section-kicker">Work Together</p>
+  <h2>Let's <em>Disrupt</em> Something</h2>
+  <p class="contact-sub">Speaking inquiries, investment opportunities, and restroom consultations welcome.</p>
+  <div class="contact-links">
+    <a href="#" class="btn-primary">Book a Meeting</a>
+    <a href="#" class="btn-ghost">Investor Relations</a>
+  </div>
+  <p style="margin-top: 3rem; font-family: 'DM Mono', monospace; font-size: 11px; color: #444; letter-spacing: 0.15em;">
+    chad@flushai.io &nbsp;·&nbsp; +1 (555) FLUSH-AI &nbsp;·&nbsp; San Francisco, CA
+  </p>
+</section>
+
+<footer>
+  <div class="footer-text">© 2024 FlushAI™ Inc. All rights reserved. Patent pending in 47 countries.</div>
+  <div class="footer-logo">🧻 FlushAI™</div>
+  <div class="footer-text">Disrupting bathrooms since 2021.</div>
+</footer>
+
+</body>
+</html>
