@@ -257,6 +257,11 @@
     background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
   }
   .product-icon { font-size: 120px; line-height: 1; position: relative; z-index: 1; }
+  .product-icon img {
+    width: 100%;
+    border-radius: 8px;
+  }
+
   .product-name {
     font-family: 'DM Mono', monospace;
     font-size: 13px; letter-spacing: 0.3em;
@@ -520,7 +525,9 @@
   </div>
   <div class="product-grid">
     <div class="product-visual">
-      <div class="product-icon">🧻</div>
+      <div class="product-icon">
+        <img src="./paper-dispenser.png" alt="">
+      </div>
       <div class="product-name">FlushAI™ Dispenser Pro X</div>
       <div style="margin-top: 1rem; font-family: 'DM Mono', monospace; font-size: 11px; color: #555; letter-spacing: 0.15em;">EST. RETAIL: $4,299</div>
     </div>
